@@ -1,0 +1,36 @@
+so the thing is ki middlewares are used to pass in all kinds of information which we 
+need to pass while the execution of the api call
+controllers contain the set of function which need to be executed for a given route
+so that route file does not disrupt out of no where
+module.exports=login=async(req,res,next)=>{
+    
+        try {
+            
+            const userFound=await userDB.findOne({username:req.body.username})
+            if(!userFound) return next(createError(404,"User not found"))
+            const isPasswordCorrect=await bcrypt.compare(req.body.password,userFound.password)
+            if(!isPasswordCorrect) return next(createError(400,"Wrong password"))
+            res.status(200).json({message:"User found",userFound})
+        } catch (error) {
+            next(error)
+        }
+
+   
+}
+this login method can be used when custom error is created 
+this is neat and no irrelevent try catch and all just use custom errors
+
+//validauthentication
+// router.get("/checkauthentication",verifyToken,(req,res,next)=>{
+//     res.json({message:"Valid authetication"})
+// })
+// //validuser
+// router.get("/checkvaliduser/:id",verifyUser,(req,res,next)=>{
+//     res.json({message:"User Verified. Hello user"})
+// })
+// //verify admin
+// router.get("/checkadmin/:id",verifyAdmin,(req,res,next)=>{
+//     res.json({message:"Admin Verified. Hello admin"})
+// })
+
+IF using proxy we need not to use a cors 
