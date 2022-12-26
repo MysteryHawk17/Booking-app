@@ -1,6 +1,6 @@
 import { faCircleArrowLeft, faCircleArrowRight, faCircleXmark, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Footer from '../../components/footer/Footer';
 import useFetch from '../../hooks/useFetch'
 import Header from '../../components/Header/Header'
@@ -12,6 +12,7 @@ import { useContext } from 'react';
 import { SearchContext } from '../../context/SearchContext';
 import { AuthContext } from '../../context/AuthContext';
 import Reserve from '../../components/reserve/Reserve';
+
 const Detailed = () => {
   const location=useLocation()
   const{user}=useContext(AuthContext)
@@ -35,21 +36,21 @@ const Detailed = () => {
       navigate("/login")
     }
   }
-  const{data,loading,error}= useFetch(`/hotel/find/${id}`)
+  const{data,loading,error,reFetch}= useFetch(`/hotel/find/${id}`)
   const {date,destination}=useContext(SearchContext)
   console.log(date)
   // console.log(destination);
   const hotData=data?.hotelData
   console.log(data?.hotelData) 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
-  function dayDifference(date1, date2) {
-    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
-    return diffDays;
-  }
+  // function dayDifference(date1, date2) {
+  //   const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+  //   const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+  //   return diffDays;
+  // }
 
-  const days = dayDifference(date[0]?.endDate, date[0]?.startDate);
-  console.log(days)
+  // const days = dayDifference(date[0]?.endDate, date[0]?.startDate);
+  // console.log(days)
   const photos = [
     {
       src: "https://img.staticmb.com/mbphoto/property/cropped_images/2022/Dec/14/Photo_h0_w320/64636845_4_tudioapartment_0_320.jpg",
@@ -154,13 +155,13 @@ const Detailed = () => {
               </p>
             </div>
             <div className="hotelDetailsPrice">
-              <h1>Perfect for a {days}-night stay!</h1>
+              {/* <h1>Perfect for a {days}-night stay!</h1> */}
               <span>
                 Located in the real heart of Delhi, this property has an
                 excellent location score of 9.8!
               </span>
               <h2>
-                <b>₹ {hotData?.cheapestPrice*days}</b> ({days} nights)
+                {/* <b>₹ {hotData?.cheapestPrice*days}</b> ({days} nights) */}
               </h2>
               <button>Reserve or Book Now!</button>
             </div>
@@ -169,7 +170,7 @@ const Detailed = () => {
         <MailList/>
         <Footer/>
         </div>}
-        {openModal&&<Reserve setOpen={openModal} hotelId={id}/>}
+        {openModal&&<Reserve setOpen={setOpenModal} hotelId={id}/>}
     </div>
   )
 }

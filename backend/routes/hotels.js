@@ -8,7 +8,7 @@ router.post('/',verifyAdmin,createHotel)
 
 
 //update
-router.put('/find/:id',verifyAdmin,updateHotel)
+router.put('/find/:id',verifyAdmin,updateHotel) 
 //delete
 router.delete("/find/:id",verifyAdmin,deleteHotel)
 //get

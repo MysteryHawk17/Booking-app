@@ -21,9 +21,9 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 
 
 //middlewares
-// app.use(cors({
-//     origin:"http://localhost:3000"
-// }))//
+app.use(cors({
+    origin:"http://localhost:3000"
+}))//
 app.use(cookieparsor())
 app.use(express.json())
 app.use("/api/auth",authRoute)

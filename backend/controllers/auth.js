@@ -26,9 +26,9 @@ module.exports=login=async(req,res,next)=>{
             const{password,isAdmin,...otherDetails}=userFound._doc
             res.cookie("access_token",token,{
                 httpOnly:true
-            }).status(200).json({message:"User found",otherDetails})
+            }).status(200).json({message:"User found",otherDetails,isAdmin})
         } catch (error) {
-            next(error)
+            next(error) 
         }
 
    

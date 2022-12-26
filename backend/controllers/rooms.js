@@ -29,6 +29,19 @@ module.exports=updateRoom=async(req,res,next)=>{
         next(error)
     }
 }
+module.exports=updateRoomAvailablity=async(req,res,next)=>{
+    
+    try {
+       await Room.updateOne({"roomNumber._id":req.params.id},{
+        $push:{
+            "roomNumbers.$.availableDates":req.body.date
+        }               
+       })
+        
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports=deleteRoom=async (req,res,next)=>{ 
     try {
         const hotelId=req.params.hotelId
